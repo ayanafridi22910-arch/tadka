@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll for anchor nav (#how, #features, #pricing) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Subtle purple dotted grid — hero ka background texture */
+.bg-grid {
+  background-image: radial-gradient(rgb(108 60 224 / 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Gradient text — hero ka bold span (purple family, doc ke palette mein) */
+.text-gradient {
+  background: linear-gradient(92deg, #6c3ce0 20%, #9b6cff 70%, #b394ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft radial glow blob — decorative */
+.blob {
+  filter: blur(64px);
+  border-radius: 9999px;
+  pointer-events: none;
+}

@@ -45,17 +45,21 @@ export default function LandingPage() {
               {t.nav.login}
             </Link>
             <Link
-              href="/signup"
+              href="/login"
               className="hidden h-12 items-center rounded-btn bg-primary px-5 text-[15px] font-semibold text-white shadow-btn transition-all hover:bg-primary-dark active:scale-[0.98] sm:inline-flex"
             >
               {t.nav.cta}
             </Link>
-            {/* Mobile hamburger (ui-doc section 7) */}
-            <button type="button" aria-label="Menu" className="flex h-12 w-12 items-center justify-center rounded-btn text-ink md:hidden">
+            {/* Mobile hamburger (ui-doc section 7) — /login page pe le jata hai */}
+            <Link
+              href="/login"
+              aria-label="Menu"
+              className="flex h-12 w-12 items-center justify-center rounded-btn text-ink md:hidden"
+            >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M3 6h18M3 12h18M3 18h18" />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -83,7 +87,7 @@ export default function LandingPage() {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/signup" className={`${buttonClasses("primary")} shadow-btn`}>
+              <Link href="/login" className={`${buttonClasses("primary")} shadow-btn`}>
                 {t.hero.cta} <span aria-hidden>→</span>
               </Link>
               <a href="#how" className={buttonClasses("secondary")}>
@@ -305,7 +309,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/signup" className={`${buttonClasses("secondary")} mt-7`}>
+              <Link href="/login" className={`${buttonClasses("secondary")} mt-7`}>
                 {t.pricing.free.cta}
               </Link>
             </div>
@@ -329,7 +333,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/signup" className={`${buttonClasses("primary")} mt-7`}>
+              <Link href="/login" className={`${buttonClasses("primary")} mt-7`}>
                 {t.pricing.pro.cta}
               </Link>
             </div>
@@ -349,7 +353,7 @@ export default function LandingPage() {
           </p>
           <p className="relative mt-2 text-[13px] text-white/60">{t.social.verified}</p>
           <Link
-            href="/signup"
+            href="/login"
             className="relative mt-8 inline-flex h-12 items-center rounded-btn bg-white px-8 text-[15px] font-semibold text-primary shadow-soft transition-all hover:bg-white/90 active:scale-[0.98]"
           >
             {t.hero.cta} <span aria-hidden>→</span>
@@ -365,7 +369,21 @@ export default function LandingPage() {
           </span>
           <nav className="flex flex-wrap justify-center gap-5">
             {t.footer.links.map((l) => (
-              <a key={l} href="#" className="transition hover:text-ink">{l}</a>
+              <a
+                key={l}
+                href={
+                  l === "Instagram"
+                    ? "https://instagram.com"
+                    : l === "Support"
+                      ? "mailto:support@tadka.in"
+                      : "#pricing"
+                }
+                target={l === "Instagram" ? "_blank" : undefined}
+                rel={l === "Instagram" ? "noopener noreferrer" : undefined}
+                className="transition hover:text-ink"
+              >
+                {l}
+              </a>
             ))}
           </nav>
           <span>{t.footer.rights.replace("{year}", String(new Date().getFullYear()))}</span>

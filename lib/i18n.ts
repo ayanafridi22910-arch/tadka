@@ -37,9 +37,9 @@ export type Dict = {
     kicker: string;
     heading: string;
     sub: string;
-    live: string;
-    cta1: string;
-    cta2: string;
+    live?: string;
+    cta1?: string;
+    cta2?: string;
   };
   social: { proof: string; rating: string; verified: string };
   footer: { madeIn: string; rights: string; links: string[] };

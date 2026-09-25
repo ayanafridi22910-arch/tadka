@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { LanguageProvider } from "@/components/language-provider";
+import { ToastProvider } from "@/lib/store";
 import "./globals.css";
 
 // ui-design-doc section 3 — Inter (EN) + Noto Sans Devanagari (HI)
@@ -35,8 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="hi" className={`${inter.variable} ${noto.variable}`} suppressHydrationWarning>
       <body className="bg-white font-sans text-ink antialiased">
-        {/* hi/en toggle har page pe (ui-doc section 8 DO) */}
-        <LanguageProvider>{children}</LanguageProvider>
+        {/* hi/en toggle har page pe (ui-doc section 8 DO) + demo toasts */}
+        <LanguageProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

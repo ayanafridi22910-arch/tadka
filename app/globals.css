@@ -27,3 +27,34 @@ html {
   border-radius: 9999px;
   pointer-events: none;
 }
+
+/* Success page ka tick pop (ui-doc 6.5) */
+@keyframes tickPop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Toast — neeche se slide ho ke aaye (ui-doc 5.6) */
+@keyframes toastIn {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-toast {
+  animation: toastIn 0.25s ease-out;
+}

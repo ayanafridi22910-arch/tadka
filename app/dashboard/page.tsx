@@ -31,6 +31,23 @@ export default function DashboardPage() {
   const [confirmProduct, setConfirmProduct] = useState<Product | null>(null);
   const today = useMemo(() => new Date().toLocaleDateString(lang === "hi" ? "hi-IN" : "en-IN", { weekday: "long", day: "numeric", month: "long" }), [lang]);
 
+  /* ---- 7-day chart data (hook — early return se PEHLE, Rules of Hooks) ---- */
+  const chart = useMemo(() => {
+    const buckets = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - i));
+      d.setHours(0, 0, 0, 0);
+      return { date: d, count: 0 };
+    });
+    for (const o of db?.orders ?? []) {
+      const od = new Date(o.createdAt);
+      od.setHours(0, 0, 0, 0);
+      const idx = buckets.findIndex((b) => b.date.getTime() === od.getTime());
+      if (idx >= 0) buckets[idx].count++;
+    }
+    return buckets;
+  }, [db?.orders]);
+
   if (!ready || !db) {
     return <div className="flex min-h-screen items-center justify-center text-muted">…</div>;
   }
@@ -44,22 +61,6 @@ export default function DashboardPage() {
   const views = myProducts.reduce((s, p) => s + p.views, 0);
   const conversion = views > 0 ? ((totalOrders / views) * 100).toFixed(1) : "0";
 
-  /* ---- 7-day chart data ---- */
-  const chart = useMemo(() => {
-    const buckets = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date();
-      d.setDate(d.getDate() - (6 - i));
-      d.setHours(0, 0, 0, 0);
-      return { date: d, count: 0 };
-    });
-    for (const o of db.orders) {
-      const od = new Date(o.createdAt);
-      od.setHours(0, 0, 0, 0);
-      const idx = buckets.findIndex((b) => b.date.getTime() === od.getTime());
-      if (idx >= 0) buckets[idx].count++;
-    }
-    return buckets;
-  }, [db.orders]);
   const maxCount = Math.max(...chart.map((c) => c.count), 1);
 
   const toggleEarnings = () => {
